@@ -4,7 +4,7 @@ Overview
     
 Prerequisite
 
-    •   Ruby 2.1 or above (http://railsinstaller.org/en)
+    •	Ruby 2.1 or above (http://railsinstaller.org/en)
     •	Rails 4.2 or above (http://railsinstaller.org/en)
     •	Imagemagick dll version (http://www.imagemagick.org/script/binary-releases.php#windows)
     •	MySQL database
