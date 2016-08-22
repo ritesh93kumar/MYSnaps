@@ -1,0 +1,79 @@
+<div class="posts-wrapper">
+  <div class="row profile-header">
+   <div class="col-md-6 col-sm-6">
+            <% if @user.avatar_file_name.to_s.include?("googleusercontent") %>
+        <% imagesource = @user.avatar_file_name %>
+       <% elsif @user.avatar_file_name.to_s.length == 0%>
+          <%  imagesource = 'assets/default-avatar.jpg' %>
+          
+      <% else %>
+          <%  imagesource = @user.avatar.url %>
+        
+      <% end %>
+      <img class="img-circle" src="<%= imagesource%>" width="180" height="180" >
+    
+    </div>
+    
+    <div class="col-md-6 col-sm-6" style="margin-top:.4cm; text-align:center;">
+      <div class="user-name-and-follow">
+    <div class="col-md-6 col-sm-6" >
+        <h3 class="profile-user-name pull-left">
+            <% if @user.user_name.length > 15 %>
+                    <%= @user.name %><br>   
+            <% else %>
+                 <%= @user.user_name %><br>   
+            <% end %>
+        </h3>
+     </div>
+       <div class="col-md-6 col-sm-6" > 
+        <span >
+          <% if @user == current_user %>
+            <%= link_to 'Edit Profile', edit_profile_path(@user.user_name), :class => 'btn edit-button' %>
+        
+         <% elsif current_user_is_following(current_user.id, @user.id) %>
+            <%= link_to 'Following', unfollow_user_path,  :remote => true,:class => 'btn unfollow-button',:id => 'unfollow-button',:method => :post%>
+          <% else %>
+            <%= link_to 'Follow', follow_user_path, remote: true,class: 'btn follow-button', id: 'follow-button', :method => :post %>
+          <% end %>
+       </span> 
+           </div> 
+    </div>
+      <div class="col-md-12 col-sm-12" >      
+          <h6 class="userEmail"><%= @user.email %></h6> 
+       </div>
+       <div class="col-md-12 col-sm-12" >     
+      <p class="profile-bio">
+        <%= @user.bio %>
+      </p>
+      <div class="user-statistics">
+        <p>
+          <%= pluralize @user.posts.count, 'post' %>
+        </p>
+      </div>
+    </div>
+    </div>
+      <script>
+      $(document).on('click', '#follow-button', function(){
+       alert("You started following this User.");
+        $('#follow-button').attr('class', 'btn unfollow-button')
+                           .text('Following')
+                           .attr('href', "/<%= @user.user_name %>/unfollow_user").attr('id', 'unfollow-button');          
+     });
+          
+      $(document).on('click', '#unfollow-button', function(){
+       alert("You have unfollowed this User");
+       $('#unfollow-button').text('Follow')
+                         .attr('class', 'btn follow-button')
+                         .attr('href', "/<%= @user.user_name %>/follow_user")
+                         .attr('id', 'follow-button');
+     });
+
+
+      </script>
+  </div>
+</div>
+
+
+<% @posts.each do |post| %>
+  <%= render 'posts/post', post: post %>
+<% end %>

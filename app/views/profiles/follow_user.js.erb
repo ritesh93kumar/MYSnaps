@@ -1,0 +1,11 @@
+/*$('#follow-button').attr('class', 'btn unfollow-button')
+                   .text('Following')
+                   .attr('href', "/<%= @user.user_name %>/unfollow_user")
+                   .attr('id', 'unfollow-button');*/
+
+$(document).on('click', '.btn.unfollow-button', function(){
+   alert("I am here");
+    $('#follow-button').attr('class', 'btn unfollow-button').text('Following').attr('href', "/<%= @user.user_name %>/unfollow_user").attr('id', 'unfollow-button');
+     
+});
+

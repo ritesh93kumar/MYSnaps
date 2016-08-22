@@ -1,0 +1,24 @@
+<% if notification.notified_by.avatar_file_name.to_s.include?("googleusercontent") %>
+        <% imagesource = notification.notified_by.avatar_file_name %>
+       <% elsif notification.notified_by.avatar_file_name.to_s.length == 0%>
+          <%  imagesource = 'assets/default-avatar.jpg' %>
+          
+      <% else %>
+          <%  imagesource = notification.notified_by.avatar.url %>
+        
+      <% end %>
+
+
+
+<li>
+    <img class="img-circle" style="border-radius:100%; width:1cm; height:1cm " src=" <%= imagesource %>
+      ">
+       
+      
+  
+
+    
+  <%= link_to "#{notification.notified_by.user_name} has #{notification.notice_type}ed on your post", link_through_path(notification) %>
+<%= time_ago_in_words notification.created_at %> ago
+
+</li>
